@@ -17,7 +17,7 @@ public interface CdEZ5F<T22 extends @NotNull BV4H, T24 extends @NotNull T22> {
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 public abstract class Dh5jdEw {
-    public abstract @NotNull CdEZ5F<@NotNull BV4H, @NotNull Object> xePfQbk(@NotNull Object u0N0rOO);
+    public abstract @NotNull CdEZ5F<@NotNull BV4H, @NotNull Object> xePfQbk();
 }
 
 // FILE: JavaTopLevelContainer.java
