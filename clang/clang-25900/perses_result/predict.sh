@@ -1,11 +1,16 @@
 #!/bin/bash
 # allow docker to access current directory
 chmod 777 .
-run_in_docker="docker run --rm -v $(realpath .):/tmp/clang-25900 -w /tmp/clang-25900 cnsun/perses:perses_part_54_name_clang_trunk"
-clang_3_6_0="$run_in_docker clang-3.6.0 -w"
-clang_7_1_0="$run_in_docker clang-7.1.0 -w"
-gcc_4_8_0="$run_in_docker gcc-4.8.0 -w"
-gcc_7_1_0="$run_in_docker gcc-7.1.0 -w"
+run_in_docker="docker exec -w /host$(realpath .) perses"
+TIMEOUTCC=10
+TIMEOUTEXE=2
+TIMEOUTCCOMP=10
+clang_3_6_0="$run_in_docker timeout -s 9 $TIMEOUTCC clang-3.6.0"
+clang_7_1_0="$run_in_docker timeout -s 9 $TIMEOUTCC clang-7.1.0"
+gcc_4_8_0="$run_in_docker timeout -s 9 $TIMEOUTCC gcc-4.8.0"
+gcc_7_1_0="$run_in_docker timeout -s 9 $TIMEOUTCC gcc-7.1.0"
+gcc="$run_in_docker timeout -s 9 $TIMEOUTCC gcc"
+ccomp="$run_in_docker timeout -s 9 $TIMEOUTCCOMP /home/coq/.opam/4.05.0/bin/ccomp"
 
 BADCC1=()
 BADCC2=("$clang_3_6_0 -O1")
@@ -90,6 +95,10 @@ rm -f out*.txt
 ###################################################
 # @ clangtkfc @ -O0 to check for undefined behavior
 ###################################################
+no_bug=1
+compile_failed=2
+exec_failed=3
+exec_error=4
 
 rm -f ./t ./out*.txt
 timeout -s 9 $TIMEOUTCC $CLANGFC $CFLAG -m64 $CFILE >&/dev/null
@@ -98,7 +107,7 @@ ret=$?
 if [ $ret != 0 ]; then
   # interesting, save a copy
   #    cp $CFILE $DIR/`date +%j:%T`-compile-$CFILE
-  exit 1
+  exit $compile_failed
 fi
 
 (timeout -s 9 $TIMEOUTEXE $EXEC_T > out0.txt 2>&1) >&/dev/null
@@ -106,12 +115,12 @@ ret=$?
 
 if [ $ret != 0 ]; then
   #    cp $CFILE $DIR/`date +%j:%T`-exe-$CFILE
-  exit 1
+  exit $exec_failed
 fi
 
 if grep -q "runtime error" out0.txt; then
   #    cp $CFILE $DIR/`date +%j:%T`-result-$CFILE
-  exit 1
+  exit $exec_error
 fi
 
 #############################
@@ -124,38 +133,25 @@ for cc in "${GOODCC[@]}"; do
   timeout -s 9 $TIMEOUTCC $cc $CFLAG $CFILE >&/dev/null
   ret=$?
   if [ $ret != 0 ]; then
-    exit 1
+    exit $compile_failed
   fi
 
   # execute
   (timeout -s 9 $TIMEOUTEXE $EXEC_T > out1.txt 2>&1) >&/dev/null
   ret=$?
   if [ $ret != 0 ]; then
-    exit 1
+    exit $exec_failed
   fi
 
   # compare with reference: out0.txt
   if ! diff -q out0.txt out1.txt > /dev/null; then
-    exit 1
+    exit $exec_error
   fi
 done
 
 #############################
 # iterate over the bad ones
 #############################
-
-for cc in "${BADCC1[@]}"; do
-  for mode in "${MODE[@]}"; do
-    rm -f ./t ./out2.txt
-
-    # compile
-    (timeout -s 9 $TIMEOUTCC $cc $CFLAG $mode $CFILE > out2.txt 2>&1) >&/dev/null
-    if ! grep 'internal compiler error' out2.txt \
-      && ! grep 'PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT' out2.txt; then
-      exit 1
-    fi
-  done
-done
 
 for cc in "${BADCC2[@]}"; do
   for mode in "${MODE[@]}"; do
@@ -165,39 +161,14 @@ for cc in "${BADCC2[@]}"; do
     timeout -s 9 $TIMEOUTCC $cc $CFLAG $mode $CFILE >&/dev/null
     ret=$?
     if [ $ret -ne 0 ]; then
-      exit 1
+      exit $compile_failed
     fi
 
     # execute
     (timeout -s 9 $TIMEOUTEXE $EXEC_T > out2.txt 2>&1) >&/dev/null
     ret=$?
     if [ $ret -ne 136 ]; then
-      exit 1
-    fi
-  done
-done
-
-for cc in "${BADCC3[@]}"; do
-  for mode in "${MODE[@]}"; do
-    rm -f ./t ./out2.txt
-
-    # compile
-    timeout -s 9 $TIMEOUTCC $cc $CFLAG $mode $CFILE >&/dev/null
-    ret=$?
-    if [ $ret != 0 ]; then
-      exit 1
-    fi
-
-    # execute
-    (timeout -s 9 $TIMEOUTEXE $EXEC_T > out2.txt 2>&1) >&/dev/null
-    ret=$?
-    if [ $ret != 0 ]; then
-      exit 1
-    fi
-
-    # compare with reference: out0.txt
-    if diff -q out0.txt out2.txt > /dev/null; then
-      exit 1
+      exit $no_bug
     fi
   done
 done

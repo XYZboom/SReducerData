@@ -10,9 +10,7 @@ typedef unsigned int uint32_t;
 
 static int16_t
 (safe_mod_func_int16_t_s_s)(int16_t si1  )
-{
-
-  }
+{}
 
 
 
@@ -22,9 +20,7 @@ static int16_t
 
 static uint8_t
 (safe_div_func_uint8_t_u_u)( uint8_t ui2 )
-{
-
-  }
+{}
 
 static uint8_t
 (safe_rshift_func_uint8_t_u_s)(uint8_t left  )
@@ -40,9 +36,7 @@ static uint8_t
 
 static uint8_t
 (safe_rshift_func_uint8_t_u_u)(uint8_t left  )
-{
-
-  }
+{}
 
 
 
@@ -52,7 +46,7 @@ struct S0 {
 };
 
 struct S1 {
-   unsigned f1 : 26;
+   unsigned f0 : 29;
    signed f2 : 10;
    signed f4 : 18;
    signed f5 : 1;
@@ -74,8 +68,7 @@ static int8_t func_14(    );
 static int16_t func_44();
 static int64_t func_1()
 {
-    struct S1 l_2 = {5257,2494,15,7269,192,0,6867};
-    l_2.f2 = ((l_2 , (((((((-8L) && (safe_rshift_func_uint8_t_u_u(func_5((((((safe_div_func_uint8_t_u_u( func_14(    ))) , (*((struct S1*)0))))) , ((int32_t)1))) ))) != ((int8_t)1)) , 0UL) > ((unsigned int)1)) | 0xC987502CL) && ((uint32_t)1))) != ((int8_t)1));
+    (((*((struct S1*)0)) , (((((((-8L) && (safe_rshift_func_uint8_t_u_u(func_5((((((safe_div_func_uint8_t_u_u( func_14(    ))) , (*((struct S1*)0))))) , ((int32_t)1))) ))) != ((int8_t)1)) , 0UL) > ((unsigned int)1)) | 0xC987502CL) && ((uint32_t)1))) != ((int8_t)1));
     }
 
 
@@ -85,8 +78,7 @@ static int64_t func_1()
 
 
 static uint8_t func_5(uint8_t p_6)
-{
-    }
+{}
 
 
 
@@ -123,13 +115,13 @@ static int16_t func_44()
     struct S1 l_59 = {1957,70,26,2769,-287,0,5702};
                                        l_59.f5 = (safe_rshift_func_uint8_t_u_s(g_968 ));
                                    if((g_21.f0 < g_756)){
-int8_t backup_0_8502_91289_l_59_f5 = (~(((~(((l_59.f5 && (((~(((unsigned int)1))) / g_37) || ((int64_t)1))) / g_66))) - ((-(((int32_t)1))) * (~((((~(g_183)) % (~(((int32_t)1)))) || (~((~((((uint32_t)1) && l_59.f2))))))))))));
-int32_t backup_2_8502_22363_g_183 = (-((((((((int32_t)1) && ((int32_t)1)) * g_37) | l_59.f5) & (((uint32_t)1) ^ ((int64_t)1))) - (~(((~((l_59.f2 * ((unsigned int)1)))) / (g_66 & ((int32_t)1))))))));
-if((((!l_59.f5) || (g_183 < backup_2_8502_22363_g_183)) && ((backup_0_8502_91289_l_59_f5 <= 12) && (l_59.f2 >= 26)))){
+int8_t backup_0_8502_91289_l_59_f5 = (~(((~(((l_59.f5 && (((~(l_59.f0)) / g_37) || ((int64_t)1))) / g_66))) - ((-(((int32_t)1))) * (~((((~(g_183)) % (~(((int32_t)1)))) || (~((~((((uint32_t)1) && l_59.f2))))))))))));
+uint32_t backup_3_8502_6189_l_59_f0 = (~(((~((((-(g_183)) | (((int32_t)1) / g_37)) && (~(backup_0_8502_91289_l_59_f5))))) % ((~(((((int64_t)1) ^ ((uint32_t)1)) + (~((g_66 || (~(((int32_t)1))))))))) >> (-((l_59.f0 % (-(l_59.f5)))))))));
+if((((!l_59.f5) || (g_183 < ((int32_t)1))) && ((backup_0_8502_91289_l_59_f5 <= 12) && (l_59.f2 >= 26)))){
 backup_0_8502_91289_l_59_f5 = l_59.f5;
-l_59.f5 = (-(((~((~((~((~(l_59.f2)))))))) / (~(((-(((g_183 + backup_2_8502_22363_g_183) + ((~(((unsigned int)1))) | (-(((backup_0_8502_91289_l_59_f5 + ((uint32_t)1)) / ((int32_t)1)))))))) & (((int32_t)1) | (-((g_37 % g_66))))))))));
-g_37 = (-((((((~(l_59.f2)) + backup_2_8502_22363_g_183) % (l_59.f5 + ((~(((uint32_t)1))) & ((~(g_66)) / backup_0_8502_91289_l_59_f5)))) - (-(((int32_t)1)))) % ((((int32_t)1) || ((unsigned int)1)) | g_183))));
-g_183 = (-(((~((((~(l_59.f5)) ^ ((int32_t)1)) * (-((((int32_t)1) * g_183)))))) / (((g_37 || ((unsigned int)1)) % (backup_2_8502_22363_g_183 - ((uint32_t)1))) & (~((g_66 + backup_0_8502_91289_l_59_f5)))))));
+l_59.f5 = (-(((~((~((~((~(l_59.f2)))))))) / (~(((-(((g_183 + ((int32_t)1)) + ((~(l_59.f0)) | (-(((backup_0_8502_91289_l_59_f5 + ((uint32_t)1)) / ((int32_t)1)))))))) & (((int32_t)1) | (-((g_37 % g_66))))))))));
+g_37 = (-((((((~(l_59.f2)) + ((int32_t)1)) % (l_59.f5 + ((~(((uint32_t)1))) & ((~(g_66)) / backup_0_8502_91289_l_59_f5)))) - (-(((int32_t)1)))) % ((((int32_t)1) || l_59.f0) | g_183))));
+g_183 = (-(((~((((~(l_59.f5)) ^ ((int32_t)1)) * (-((((int32_t)1) * g_183)))))) / (((g_37 || l_59.f0) % (((int32_t)1) - backup_3_8502_6189_l_59_f0)) & (~((g_66 + backup_0_8502_91289_l_59_f5)))))));
 }
 
                     }
@@ -145,4 +137,5 @@ g_183 = (-(((~((((~(l_59.f5)) ^ ((int32_t)1)) * (-((((int32_t)1) * g_183)))))) /
 int main ( )
 {
     func_1();
-    }
+    return 0;
+}

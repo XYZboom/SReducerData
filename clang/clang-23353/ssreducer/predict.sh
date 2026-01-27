@@ -1,21 +1,16 @@
 #!/bin/bash
 # allow docker to access current directory
 chmod 777 .
-run_in_docker="docker run --rm -v $(realpath .):/tmp/gcc-65383 -w /tmp/gcc-65383 cnsun/perses:perses_part_54_name_clang_trunk"
-TIMEOUTCC=10
-TIMEOUTEXE=2
-TIMEOUTCCOMP=10
-clang_3_6_0="$run_in_docker timeout -s 9 $TIMEOUTCC clang-3.6.0"
-clang_7_1_0="$run_in_docker timeout -s 9 $TIMEOUTCC clang-7.1.0"
-gcc_4_8_0="$run_in_docker timeout -s 9 $TIMEOUTCC gcc-4.8.0"
-gcc_7_1_0="$run_in_docker timeout -s 9 $TIMEOUTCC gcc-7.1.0"
-gcc="$run_in_docker timeout -s 9 $TIMEOUTCC gcc"
-ccomp="$run_in_docker timeout -s 9 $TIMEOUTCCOMP ccomp"
+run_in_docker="docker exec -w /host$(realpath .) perses"
+clang_3_6_0="$run_in_docker clang-3.6.0 -w"
+clang_7_1_0="$run_in_docker clang-7.1.0 -w"
+gcc_4_8_0="$run_in_docker gcc-4.8.0 -w"
+gcc_7_1_0="$run_in_docker gcc-7.1.0 -w"
 
-BADCC1=()
-BADCC3=("$clang_3_6_0  -O3")
+BADCC1=("$clang_3_6_0 -O3")
 BADCC2=()
-MODE=$MODE
+BADCC3=()
+MODE=-m64
 
 # need to configure this part
 #BADCC1=("clang-7.1.0 -O3")  # compilation failures
@@ -24,7 +19,9 @@ MODE=$MODE
 #MODE=-m64
 
 GOODCC=("$gcc_4_8_0 -O0")
-
+TIMEOUTCC=10
+TIMEOUTEXE=2
+TIMEOUTCCOMP=10
 CFILE=small.c
 CFLAG="-o t"
 CLANGFC="$clang_7_1_0 -m64 -O0 -Wall -fwrapv -ftrapv -fsanitize=undefined"
@@ -45,6 +42,7 @@ if
     && ! grep 'invalid in C99' out.txt \
     && ! grep 'specifies type' out.txt \
     && ! grep 'should return a value' out.txt \
+    && ! grep 'uninitialized' out.txt \
     && ! grep 'incompatible pointer to' out.txt \
     && ! grep 'incompatible integer to' out.txt \
     && ! grep 'type specifier missing' out.txt \
@@ -82,12 +80,6 @@ fi
 # compcert first
 #
 
-timeout -s 9 $TIMEOUTCCOMP $ccomp -interp -fall $CFILE >&/dev/null
-ret=$?
-if [ $ret != 0 ]; then
-  exit 1
-fi
-
 ###################################################
 # @ clangtkfc @ -O0 to check for undefined behavior
 ###################################################
@@ -102,20 +94,18 @@ if [ $ret != 0 ]; then
   exit 1
 fi
 
-EXEC_T="$run_in_docker timeout -s 9 $TIMEOUTEXE ./t"
+#(timeout -s 9 $TIMEOUTEXE ./t > out0.txt 2>&1) >&/dev/null
+#ret=$?
 
-($EXEC_T > out0.txt 2>&1) >&/dev/null
-ret=$?
-
-if [ $ret != 0 ]; then
+#if [ $ret != 0 ]; then
   #    cp $CFILE $DIR/`date +%j:%T`-exe-$CFILE
-  exit 1
-fi
+#  exit 1
+#fi
 
-if grep -q "runtime error" out0.txt; then
+#if grep -q "runtime error" out0.txt; then
   #    cp $CFILE $DIR/`date +%j:%T`-result-$CFILE
-  exit 1
-fi
+#  exit 1
+#fi
 
 #############################
 # iterate over the good ones
@@ -131,21 +121,54 @@ for cc in "${GOODCC[@]}"; do
   fi
 
   # execute
-  ($EXEC_T > out1.txt 2>&1) >&/dev/null
-  ret=$?
-  if [ $ret != 0 ]; then
-    exit 1
-  fi
+#  (timeout -s 9 $TIMEOUTEXE ./t > out1.txt 2>&1) >&/dev/null
+#  ret=$?
+#  if [ $ret != 0 ]; then
+#    exit 1
+#  fi
 
   # compare with reference: out0.txt
-  if ! diff -q out0.txt out1.txt > /dev/null; then
-    exit 1
-  fi
+#  if ! diff -q out0.txt out1.txt > /dev/null; then
+#    exit 1
+#  fi
 done
 
 #############################
 # iterate over the bad ones
 #############################
+
+for cc in "${BADCC1[@]}"; do
+  for mode in "${MODE[@]}"; do
+    rm -f ./t ./out2.txt
+
+    # compile
+    (timeout -s 9 $TIMEOUTCC $cc $CFLAG $mode $CFILE > out2.txt 2>&1) >&/dev/null
+    if ! grep 'internal compiler error' out2.txt \
+      && ! grep 'PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT' out2.txt; then
+      exit 1
+    fi
+  done
+done
+
+for cc in "${BADCC2[@]}"; do
+  for mode in "${MODE[@]}"; do
+    rm -f ./t ./out2.txt
+
+    # compile
+    timeout -s 9 $TIMEOUTCC $cc $CFLAG $mode $CFILE >&/dev/null
+    ret=$?
+    if [ $ret -ne 0 ]; then
+      exit 1
+    fi
+
+    # execute
+    (timeout -s 9 $TIMEOUTEXE ./t > out2.txt 2>&1) >&/dev/null
+    ret=$?
+    if [ $ret -ne 137 ]; then
+      exit 1
+    fi
+  done
+done
 
 for cc in "${BADCC3[@]}"; do
   for mode in "${MODE[@]}"; do
@@ -159,7 +182,7 @@ for cc in "${BADCC3[@]}"; do
     fi
 
     # execute
-    (timeout -s 9 $TIMEOUTEXE $EXEC_T > out2.txt 2>&1) >&/dev/null
+    (timeout -s 9 $TIMEOUTEXE ./t > out2.txt 2>&1) >&/dev/null
     ret=$?
     if [ $ret != 0 ]; then
       exit 1

@@ -1,5 +1,6 @@
 
 typedef signed char int8_t;
+typedef unsigned int uint32_t;
 
 static int8_t
 (safe_mul_func_int8_t_s_s)(int8_t si1, int8_t si2 )
@@ -19,13 +20,17 @@ static int8_t
 
 static void ***
 (safe_rshift_func_int16_t_s_u)(void *** left  )
-{
-
-  }
+{}
 
 
 
 
+
+
+
+static void
+crc32_gentab ()
+{}
 
 
 
@@ -38,6 +43,7 @@ static void *** g_25 = 0x6EAB3CF8L;
 static void *** g_62 = 3L;
 static volatile struct S1 g_80 = {-4,-4,0x4F663622L,0xFA2EL};
 static void *** *g_116 = &g_62;
+static void *** g_1648 = 0xE1A00619L;
 static void *** g_2243 = 0x41CCDE37L;
 static void *** g_2951 = 0x91FA2AD1L;
 
@@ -66,8 +72,7 @@ static struct S1 func_1()
 
 
 static void *** func_2(const int8_t p_3    )
-{
-    }
+{}
 
 
 
@@ -77,7 +82,7 @@ static void *** func_2(const int8_t p_3    )
 
 static void *** func_10(   )
 {
-    (*(*((void ******)0))) = func_49(  ((void ***)1) );
+    (*(*((void ******)0))) = func_49(  ((uint32_t)1) );
 
     }
 

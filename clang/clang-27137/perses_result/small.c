@@ -1,45 +1,6 @@
-typedef
-short
-bk
-;
-void
-a
-(
-bk
-bk
-,
-int
-a
-)
+int main (                      )
 {
-printf
-(
-"%"
-)
-;
-}
-;
-bk
-o
-;
-int
-main
-(
-)
-{
-int
-b
-=
-0
-;
-a
-(
-b
-,
-o
-)
-;
-return
-0
-;
+ printf ("%"
+                               );
+    return 0;
 }

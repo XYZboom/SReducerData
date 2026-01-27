@@ -1,7 +1,7 @@
 #!/bin/bash
 # allow docker to access current directory
 chmod 777 .
-run_in_docker="docker run --rm -v $(realpath .):/tmp/clang-23353 -w /tmp/clang-23353 cnsun/perses:perses_part_54_name_clang_trunk"
+run_in_docker="docker exec -w /host$(realpath .) perses"
 clang_3_6_0="$run_in_docker clang-3.6.0 -w"
 clang_7_1_0="$run_in_docker clang-7.1.0 -w"
 gcc_4_8_0="$run_in_docker gcc-4.8.0 -w"

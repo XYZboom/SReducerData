@@ -10,9 +10,7 @@ typedef unsigned int uint32_t;
 
 static int16_t
 (safe_mod_func_int16_t_s_s)(int16_t si1  )
-{
-
-  }
+{}
 
 
 
@@ -22,9 +20,7 @@ static int16_t
 
 static uint8_t
 (safe_div_func_uint8_t_u_u)( uint8_t ui2 )
-{
-
-  }
+{}
 
 static uint8_t
 (safe_rshift_func_uint8_t_u_s)(uint8_t left  )
@@ -40,9 +36,7 @@ static uint8_t
 
 static uint8_t
 (safe_rshift_func_uint8_t_u_u)(uint8_t left  )
-{
-
-  }
+{}
 
 
 
@@ -54,7 +48,7 @@ struct S0 {
 struct S1 {
    unsigned f1 : 26;
    signed f2 : 10;
-   signed f4 : 18;
+   unsigned f3 : 27;
    signed f5 : 1;
    };
 
@@ -85,8 +79,7 @@ static int64_t func_1()
 
 
 static uint8_t func_5(uint8_t p_6)
-{
-    }
+{}
 
 
 

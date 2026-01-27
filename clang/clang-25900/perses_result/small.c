@@ -1,22 +1,22 @@
-typedef             e     ;
- c                            (                  b     )
+typedef             a     ;
+ b                            (                  e     )
 {
   return
-                   b      ;
+                   e      ;
 }
-struct e  {
-   signed c     ;
+struct a  {
+   signed b     ;
 };
-              a           ;
-               b      (             )
+               d                  ;
+               e      (             )
 {
-    struct e  b                                   ;
-                    b   .c  =  c                           (        ) ;
-                               e      c                                                                                                                                                                              ;
-c                           = b   .c ;
-a    =                       a                          %                                      c                                                                             ;
+    struct a  e                                   ;
+                    e   .b  =  b                           (        ) ;
+                               a      b                                                                                                                                                                              ;
+b                           = e   .b ;
+d    =                       d                          %                                      b                                                                             ;
 }
     main (                      )
 {
-    b     ();
+    e     ();
 }

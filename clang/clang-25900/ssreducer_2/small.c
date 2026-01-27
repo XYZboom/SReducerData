@@ -10,9 +10,7 @@ typedef unsigned int uint32_t;
 
 static int16_t
 (safe_mod_func_int16_t_s_s)(int16_t si1  )
-{
-
-  }
+{}
 
 
 
@@ -22,9 +20,7 @@ static int16_t
 
 static uint8_t
 (safe_div_func_uint8_t_u_u)( uint8_t ui2 )
-{
-
-  }
+{}
 
 static uint8_t
 (safe_rshift_func_uint8_t_u_s)(uint8_t left  )
@@ -40,9 +36,7 @@ static uint8_t
 
 static uint8_t
 (safe_rshift_func_uint8_t_u_u)(uint8_t left  )
-{
-
-  }
+{}
 
 
 
@@ -74,8 +68,7 @@ static int8_t func_14(    );
 static int16_t func_44();
 static int64_t func_1()
 {
-    struct S1 l_2 = {5257,2494,15,7269,192,0,6867};
-    l_2.f2 = ((l_2 , (((((((-8L) && (safe_rshift_func_uint8_t_u_u(func_5((((((safe_div_func_uint8_t_u_u( func_14(    ))) , (*((struct S1*)0))))) , ((int32_t)1))) ))) != ((int8_t)1)) , 0UL) > ((unsigned int)1)) | 0xC987502CL) && ((uint32_t)1))) != ((int8_t)1));
+    (((*((struct S1*)0)) , (((((((-8L) && (safe_rshift_func_uint8_t_u_u(func_5((((((safe_div_func_uint8_t_u_u( func_14(    ))) , (*((struct S1*)0))))) , ((int32_t)1))) ))) != ((int8_t)1)) , 0UL) > ((unsigned int)1)) | 0xC987502CL) && ((uint32_t)1))) != ((int8_t)1));
     }
 
 
@@ -85,8 +78,7 @@ static int64_t func_1()
 
 
 static uint8_t func_5(uint8_t p_6)
-{
-    }
+{}
 
 
 
@@ -145,4 +137,5 @@ g_183 = (-(((~((((~(l_59.f5)) ^ ((int32_t)1)) * (-((((int32_t)1) * g_183)))))) /
 int main ( )
 {
     func_1();
-    }
+    return 0;
+}
