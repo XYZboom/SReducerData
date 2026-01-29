@@ -1,19 +1,18 @@
 package java.util;
-class a                                                 {
-                  AbstractList    a;
-           ListIterator    a           (                                ) {
-        return new ListIterator<a>() {
-                          ListIterator    c = a.listIterator(            );
+class a                                    {
+           ListIterator         a           () {
+        return new ListIterator        () {
+                          ListIterator         a = ((AbstractList        ) null).listIterator(   );
             public boolean hasNext() {
                 return true;
             }
-            public a next() {
+            public a      next() {
                     return null;
             }
             public boolean hasPrevious() {
                 return true;
             }
-            public a previous() {
+            public a      previous() {
                     return null;
             }
             public int nextIndex() {
@@ -24,10 +23,10 @@ class a                                                 {
             }
             public void remove() {
                 }
-            public void set(a a) {
+            public void set(Object a) {
                 }
-            public void add(a a) {
+            public void add(Object a) {
                 }
         };
     }
-}
+    }

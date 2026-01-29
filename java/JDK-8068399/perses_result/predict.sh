@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 src=$(realpath $SCRIPT_DIR/Main.java)
-out=$(realpath $SCRIPT_DIR/../out)
+out=$(realpath $SCRIPT_DIR/out)
 
 mkdir_out=$(mkdir $out)
 

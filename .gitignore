@@ -1,6 +1,9 @@
 **/perses_deploy.jar
 **/out/*
 **/cmake-build*
+**/build
 **/perses_progress.txt
 **/output.log
 .idea/**/*
+**/.gradle
+**/*.iml

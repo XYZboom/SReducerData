@@ -1,11 +1,8 @@
-package a   .a   ;
-       class b           {
-    static class e                       <b>
+           class a
                                                                       {
-                static class c                 extends e                       <c     >
+                       class b                <a>
                                     {
             }
-                             e           <?> a                   =
-                new a   .a   .b          .e                       .c                ();
-    }
+                             b           <?> a                   =
+                new b                <>();
     }

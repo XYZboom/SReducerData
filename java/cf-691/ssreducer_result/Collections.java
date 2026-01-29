@@ -73,14 +73,17 @@ public class Collections {
                              extends UnmodifiableSortedSet<E>
                              implements NavigableSet<E>, Serializable {
 
-        private static class EmptyNavigableSet extends UnmodifiableNavigableSet<Object>
+        private static class EmptyNavigableSet<E> extends UnmodifiableNavigableSet<E>
             implements Serializable {
+
+            public EmptyNavigableSet() {
+                }
 
             }
 
         @SuppressWarnings("rawtypes")
         private static final NavigableSet<?> EMPTY_NAVIGABLE_SET =
-                new java.util.Collections.UnmodifiableNavigableSet.EmptyNavigableSet();
+                new EmptyNavigableSet<>();
 
         public E lower(E e)                             { return null; }
         public E floor(E e)                             { return null; }

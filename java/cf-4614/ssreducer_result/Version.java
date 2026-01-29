@@ -5,8 +5,7 @@ import java.util.stream.Collectors;
 
 public final class Version {
 
-  static {
-    }
+  static {}
 
   public static Map<String, String> getAllVersionInformation() {
     return (Map<String, String>) null;
